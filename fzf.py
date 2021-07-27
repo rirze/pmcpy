@@ -14,15 +14,19 @@ c = client("https://awsgov.parkmycloud.com")
 
 c.login(**creds)
 
-
+raw_items = {}
 
 def stringify(item):
+    global raw_items
+    raw_items[item['id']] = item
+    trimmed_item = {key: item[key] for key in ('cred_name', 'name', 'state', 'info', 'team_name', 'id')}
+    return json.dumps(trimmed_item)
 
 
 def iter_items():
     response = c.list_resources(pageSize=100)
     for item in response['items']:
-        yield json.dumps(item)
+        yield stringify(item)
     limit, total = response['limit'], response['total']
 
     with ThreadPoolExecutor(max_workers=10) as thread_pool:
@@ -31,10 +35,12 @@ def iter_items():
 
         for future in as_completed(futures):
             for item in future.result()['items']:
-                yield json.dumps(item)
+                yield stringify(item)
 
 
-[pprint(json.loads(x)) for x in iterfzf(iter_items(), multi=True, exact=True)]
+#[pprint(raw_items[json.loads(x)['id']]) for x in iterfzf(iter_items(), multi=True, exact=True)]
+
+
 
 
 
