@@ -302,7 +302,6 @@ def list_resources(
     url = self.endpoint + "/v2/resourcequery"
     if args:
         url += "?" + "&".join(args)
-    print(url)
 
     headers = {
         'X-Auth-Token': self.auth_token
