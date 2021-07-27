@@ -38,9 +38,6 @@ def iter_items():
                 yield stringify(item)
 
 
-#[pprint(raw_items[json.loads(x)['id']]) for x in iterfzf(iter_items(), multi=True, exact=True)]
-
-
 def override_schedule(items):
     item_ids = [item['id'] for item in items]
     hours = float(input('How many hours?: '))
@@ -68,11 +65,3 @@ if __name__ == '__main__':
         command: str = iterfzf(options.keys(), exact=True)
 
         options[command](original_items)
-
-
-
-#pprint(c.get_resource_details_v1(resource_id))
-
-# pprint(c.override_schedule([resource_id], override_period=4))
-
-# pprint(c.toggle_resources_v1([resource_id], action='start'))
