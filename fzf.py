@@ -1,12 +1,13 @@
-from pmcpy import client
-
-from iterfzf import iterfzf
-
 from math import ceil
 import json
 from pprint import pprint
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from iterfzf import iterfzf
+
+from pmcpy import client
+
 
 creds = json.loads(open(".pmc", 'r').read())
 c = client("https://awsgov.parkmycloud.com")
