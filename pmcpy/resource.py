@@ -177,7 +177,7 @@ def override_schedule(self, item_ids,
     }
 
     body = {
-        "items_ids": item_ids,
+        "item_ids": item_ids,
     }
     if override_period:
         body["override_period"] = override_period
@@ -200,7 +200,7 @@ def cancel_override_schedule(self, item_ids):
     }
 
     body = {
-        "items_ids": item_ids,
+        "item_ids": item_ids,
     }
 
     response = self.request("PUT", url, headers, body)

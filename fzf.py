@@ -41,6 +41,33 @@ def iter_items():
 #[pprint(raw_items[json.loads(x)['id']]) for x in iterfzf(iter_items(), multi=True, exact=True)]
 
 
+def override_schedule(items):
+    item_ids = [item['id'] for item in items]
+    hours = float(input('How many hours?: '))
+
+    print(item_ids, hours)
+    pprint(c.override_schedule(item_ids, override_period=hours))
+
+
+def cancel_override_schedule(items):
+    item_ids = [item['id'] for item in items]
+    pprint(c.cancel_override_schedule(item_ids))
+
+
+options = {
+    '1. Override Schedule': override_schedule,
+    '2. Cancel Override Schedule': cancel_override_schedule,
+}
+
+
+if __name__ == '__main__':
+    resources = iterfzf(iter_items(), multi=True, exact=True)
+    if resources:
+        original_items = [raw_items[json.loads(x)['id']] for x in resources]
+
+        command: str = iterfzf(options.keys(), exact=True)
+
+        options[command](original_items)
 
 
 
